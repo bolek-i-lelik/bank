@@ -1,60 +1,81 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
-    <br>
-</p>
+Yii 2 Basic Project Template adminLTE 2.1.1
+===========================================
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+CONFIGURATION
+-------------
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+Alter and add into the SiteController.
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+~~~
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+        return $this->redirect(Yii::$app->user->loginUrl);
+    }
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-advanced/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-advanced/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
+    public function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) {
+            // change layout for error action
+            if ($action->id=='login')
+                 $this->layout = 'login';
+            return true;
+        } else {
+            return false;
+        }
+    }
+~~~
 
-DIRECTORY STRUCTURE
--------------------
+Alter the method behaviors()
 
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
+alter 'config/web.php'
+
+set array keys:
+
+~~~
+    'layout'=>'column2',
+    'layoutPath'=>'@app/themes/adminLTE/layouts',
+
+    'components' => [
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                ''=>'site/index',
+                '<action:(index|login|logout)>'=>'site/<action>',
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
+            ],
+        ],
+
+        Set the views path theme
+
+        'view' => [
+            'theme' => [
+                'pathMap' => ['@app/views' => '@app/themes/adminLTE'],
+                'baseUrl' => '@web/../themes/adminLTE',
+            ],
+        ],
+
+     ]
+~~~
+
+Config gii to generator from custom
+
+~~~
+$config['modules']['gii'] = [
+            'class' => 'yii\gii\Module',
+            'generators' => [ //here
+                'crud' => [ // generator name
+                    'class' => 'yii\gii\generators\crud\Generator', // generator class
+                    'templates' => [ //setting for out templates
+                        'custom' => '@vendor/bmsrox/yii-adminlte-crud-template', // template name => path to template
+                    ]
+                ]
+            ],
+        ];
+~~~
+
