@@ -6,8 +6,11 @@
  */
 
 use yii\helpers\Html;
+use backend\modules\user\models\User;
 
 $bundle = yiister\gentelella\assets\Asset::register($this);
+
+$user = User::find()->where(['id' => Yii::$app->user->id])->one();
 
 ?>
 <?php $this->beginPage(); ?>
@@ -47,19 +50,18 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                             <img src="http://placehold.it/128x128" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>John Doe</h2>
+                            <br/>
+                            <h2><?= $user->first_name.' '.$user->last_name ?></h2>
                         </div>
                     </div>
                     <!-- /menu prile quick info -->
 
-                    <br />
+                    <br /><br /><br /><br />
 
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
                         <div class="menu_section">
-                            <h3>General</h3>
                             <?=
                             \yiister\gentelella\widgets\Menu::widget(
                                 [
@@ -75,6 +77,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                                                 ["label" => "Общая информация", "url" => ["/Organization/default"]],
                                                 ["label" => "Отделы", "url" => ["/menu"]],
                                                 ["label" => "Сотрудники", "url" => ["/employee/default"]],
+                                                ["label" => "Пользователи", "url" => ["/user/user"]],
                                             ],
                                         ],
                                         [
@@ -166,7 +169,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="http://placehold.it/128x128" alt="">John Doe
+                                    <img src="http://placehold.it/128x128" alt=""><?= $user->first_name.' '.$user->last_name ?>
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -181,7 +184,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                                     <li>
                                         <a href="javascript:;">Help</a>
                                     </li>
-                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                    <li><a href="/site/logout" data-method="post"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                                     </li>
                                 </ul>
                             </li>

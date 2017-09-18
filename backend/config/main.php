@@ -18,6 +18,9 @@ return [
         'employee' => [
             'class' => 'backend\modules\employee\Employee',
         ],
+        'user' => [
+            'class' => 'backend\modules\user\User',
+        ],
     ],
     'components' => [
         'request' => [

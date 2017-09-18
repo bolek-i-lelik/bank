@@ -15,6 +15,8 @@ class AppController extends \yii\console\Controller
             $user = new User();
             $user->username = 'admin';
             $user->email = 'admin@admin.ru';
+            $user->first_name = 'Админ';
+            $user->last_name = 'Админов';
             $user->setPassword('admin');
             $user->generateAuthKey();
             if ($user->save()) {

@@ -12,6 +12,8 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    public $first_name;
+    public $last_name;
 
     private $_user;
 
@@ -23,7 +25,7 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['password', 'first_name', 'last_name'], 'required', 'message' => 'Заполните поле'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -70,9 +72,20 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByFullName($this->first_name, $this->last_name);
+            //$this->_user = User::findByUsername($this->username);
         }
 
         return $this->_user;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
+            'password' => 'Пароль',
+            'rememberMe' => 'Запомнить',
+        ];
     }
 }

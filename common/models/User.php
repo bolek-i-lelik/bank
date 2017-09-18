@@ -20,6 +20,8 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $first_name
+ * @property string $last_name
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -81,6 +83,14 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * Finds user by FullName
+     */
+    public static function findByFullName($first_name, $last_name)
+    {
+        return static::findOne(['first_name' => $first_name, 'last_name' => $last_name, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -186,4 +196,5 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
 }
