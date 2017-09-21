@@ -85,8 +85,8 @@ $user = User::find()->where(['id' => Yii::$app->user->id])->one();
                                             "icon" => "th",
                                             "url" => "#",
                                             "items" => [
-                                                ["label" => "Добавить задачу", "url" => ["/Task/task"]],
-                                                ["label" => "Все задачи", "url" => ["/Task/default"]]
+                                                ["label" => "Добавить задачу", "url" => ["/Task/task/create"]],
+                                                ["label" => "Все задачи", "url" => ["/Task/task"]]
                                             ],
                                         ],
                                         [
