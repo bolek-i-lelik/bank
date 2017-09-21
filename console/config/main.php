@@ -32,4 +32,9 @@ return [
         ],
     ],
     'params' => $params,
+    'modules' => [
+        'Task' => [
+            'class' => 'app\modules\task\Task',
+        ],
+    ],
 ];

@@ -21,6 +21,9 @@ return [
         'user' => [
             'class' => 'backend\modules\user\User',
         ],
+        'Task' => [
+            'class' => 'backend\modules\Task\Task',
+        ],
     ],
     'components' => [
         'request' => [

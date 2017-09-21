@@ -14,7 +14,7 @@ class m170902_074103_create_table_task extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%task}}', [
+        $this->createTable('{{%Task}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
             'description' => $this->string()->notNull(),
@@ -31,6 +31,6 @@ class m170902_074103_create_table_task extends Migration
 
     public function down()
     {
-        $this->dropTable('{{%task}}');
+        $this->dropTable('{{%Task}}');
     }
 }
