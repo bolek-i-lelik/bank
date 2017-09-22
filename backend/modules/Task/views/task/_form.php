@@ -2,6 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use iamsaint\datetimepicker\Datetimepicker;
+use iamsaint\datetimepicker\Assets;
+use kartik\select2\Select2;
+
+Assets::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\task\Task */
@@ -12,13 +17,24 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->hint('')->label('Наименование задачи') ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'description')->textarea(['maxlength' => true])->hint('')->label('Описание задачи')  ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <?= $form->field($model, 'date_deadline')->widget(Datetimepicker::className(),[
+        'options' => [
+            'lang' => 'ru',
+            'value' => date('d.m.Y'),
+            'formatDate' => 'd...m...Y',
+            'format' => 'd.m.Y G:i:s',
+        ]
+    ])->label('Крайний срок'); ?>
 
-    <?= $form->field($model, 'deadline')->textInput() ?>
+        <?= $form->field($model, 'responsible')->widget(Select2::className(),[
+                'data' => \backend\modules\employee\models\Employee::find()->select(['concat(surname, " ", name)'])->asArray()->all()
+        ])->label('Исполнитель') ?>
+
+    <!--<?= $form->field($model, 'deadline')->textInput() ?>
 
     <?= $form->field($model, 'importance')->textInput() ?>
 
@@ -30,7 +46,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'coauthor')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'parent')->textInput() ?>
+    <?= $form->field($model, 'parent')->textInput() ?>-->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
