@@ -24,6 +24,9 @@ return [
         'Task' => [
             'class' => 'backend\modules\Task\Task',
         ],
+        'Department' => [
+            'class' => 'backend\modules\Department\Department',
+        ],
     ],
     'components' => [
         'request' => [
