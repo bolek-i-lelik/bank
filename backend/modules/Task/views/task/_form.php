@@ -34,7 +34,7 @@ Assets::register($this);
                 'data' => \backend\modules\employee\models\Employee::find()->select(['concat(surname, " ", name)'])->asArray()->all()
         ])->label('Исполнитель') ?>
 
-    <?php echo \backend\modules\employee\widgets\SelectMultipleEmployee::widget(['form' => $form]) ?>
+    <?php echo \backend\modules\employee\widgets\SelectEmployee::widget(['form' => $form]) ?>
     <!--<?= $form->field($model, 'deadline')->textInput() ?>
 
     <?= $form->field($model, 'importance')->textInput() ?>
