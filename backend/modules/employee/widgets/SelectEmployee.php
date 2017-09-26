@@ -1,8 +1,8 @@
 <?php
 
-namespace backend\modules\Department\widgets;
+namespace backend\modules\employee\widgets;
 
-use backend\modules\Department\models\Department;
+use backend\modules\employee\models\Employee;
 use Yii;
 use yii\helpers\{Url, Html};
 use yii\base\Widget;
@@ -15,23 +15,23 @@ use kartik\select2\Select2;
  * Выбор отдела с помощью виджета Select2
  * echo SelectEmployee::widget(['form' => $form]);
  */
-class SelectDepartment extends Widget
+class SelectEmployee extends Widget
 {
     public $form;
     public $model;
     public function run()
     {
         parent::run();
-        $departments = Department::find()->select(['id','name'])->asArray()->all();
-        $model = new \backend\modules\Department\models\Department();
+        $employees = Employee::find()->select(['id','concat(surname, " ", name)  as short_name'])->asArray()->all();
+        $model = new Employee();
         //var_dump($departments);exit();
         return $this->form->field($model, 'name')->widget(Select2::class,[
-            'name' => 'departments',
-            'data' => ArrayHelper::map($departments, 'id', 'name'),
+            'name' => 'employees',
+            'data' => ArrayHelper::map($employees, 'id', 'short_name'),
             'size' => Select2::MEDIUM,
             'options' => [
-                'placeholder' => 'Укажите отдел',
+                'placeholder' => 'Укажите сотрудника',
             ],
-        ])->label('Отделы');
+        ])->label('Сотрудник');
     }
 }

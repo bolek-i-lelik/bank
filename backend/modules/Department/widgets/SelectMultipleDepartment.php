@@ -13,7 +13,7 @@ use kartik\select2\Select2;
 
 /**
  * Выбор отдела с помощью виджета Select2
- * echo SelectDepartment::widget(['form' => $form]);
+ * echo SelectEmployee::widget(['form' => $form]);
  */
 class SelectMultipleDepartment extends Widget
 {

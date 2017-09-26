@@ -1,20 +1,19 @@
 <?php
 
-namespace backend\modules\Department\models;
+namespace backend\modules\employee\models;
 
 use Yii;
 use yii\base\Model;
 
-
-class DepartmentSelect extends Model
+class EmployeeSelect extends Model
 {
     /**
      * @inheritdoc
      */
-    public $department;
+    public $employees;
     public static function tableName()
     {
-        return 'department';
+        return '{{%employee}}';
     }
 
     /**
@@ -23,7 +22,7 @@ class DepartmentSelect extends Model
     public function rules()
     {
         return [
-            ['department', 'each', 'rule' => ['integer']]
+            ['employees', 'each', 'rule' => ['integer']]
         ];
     }
 
@@ -33,7 +32,7 @@ class DepartmentSelect extends Model
     public function attributeLabels()
     {
         return [
-            'department' => 'department'
+            'employees' => 'employees'
         ];
     }
 }

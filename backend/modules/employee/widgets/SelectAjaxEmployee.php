@@ -1,8 +1,8 @@
 <?php
 
-namespace backend\modules\Department\widgets;
+namespace backend\modules\employee\widgets;
 
-use backend\modules\Department\models\Department;
+use backend\modules\employee\models\Employee;
 use Yii;
 use yii\helpers\Json;
 use yii\helpers\{Url, Html};
@@ -17,14 +17,14 @@ use kartik\select2\Select2;
  * не работает, отладить
  * echo SelectAjaxEmployee::widget(['form' => $form]);
  */
-class SelectAjaxDepartment extends Widget
+class SelectAjaxEmployee extends Widget
 {
     public $form;
     public $model;
     public function run()
     {
         parent::run();
-        $model = new \backend\modules\Department\models\Department();
+        $model = new Employee();
         $placeholder = [];
        /* if(is_array($model->department_id)) {
             foreach ($model->department_id as $a) {
@@ -32,11 +32,11 @@ class SelectAjaxDepartment extends Widget
             }
         }*/
         return $this->form->field($model, 'name')->widget(Select2::class,[
-            'name' => 'departments',
+            'name' => 'employee',
             'size' => Select2::MEDIUM,
             'data'=>$placeholder,
             'options' => [
-                'placeholder' => 'Укажите отдел',
+                'placeholder' => 'Укажите сотрудников',
             ],
             'pluginEvents' => [
                 "change" => new \yii\web\JsExpression('function(){
@@ -46,7 +46,7 @@ class SelectAjaxDepartment extends Widget
                 'allowClear' => true,
                 'minimumInputLength' => 0,
                 'ajax' => [
-                    'url' => '/Department/department/select',
+                    'url' => '/employee/employee/select',
                     'dataType' => 'json',
                     'type' => 'get',
                     'data' => new JsExpression('function(params) { return {q:params.term}; }')
@@ -56,6 +56,6 @@ class SelectAjaxDepartment extends Widget
                 'templateSelection' => new JsExpression('function (brand) { return brand.text; }'),
             ],
 
-        ])->label('Отделы');
+        ])->label('Сотрудники');
     }
 }
