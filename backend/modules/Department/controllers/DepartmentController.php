@@ -5,6 +5,8 @@ namespace backend\modules\Department\controllers;
 use Yii;
 use backend\modules\Department\models\Department;
 use backend\modules\Department\models\DepartmentSearch;
+use yii\db\Exception;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -120,5 +122,21 @@ class DepartmentController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionSelect(){
+        $date = '';
+        //var_dump('test');exit();
+        //return Json::encode(['1','2']);
+        if(Yii::$app->getRequest()->isPost){
+            $request = Yii::$app->getRequest()->get();
+            //var_dump($request);exit();
+            $date = Json::encode(Department::find()->select(['name'])->where([['like', 'name', '%'.$request['name'] .'%', false]])->asArray()->all());
+            //return Json::encode($date);
+        }
+        //var_dump($date);//exit();
+        return $date;
+        //throw new Exception()// $date;
+        //throw new Exception();
     }
 }
