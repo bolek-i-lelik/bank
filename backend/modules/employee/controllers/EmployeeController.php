@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\modules\Employee\controllers;
+namespace backend\modules\employee\controllers;
 
 use Yii;
-use backend\modules\Employee\models\Employee;
-use backend\modules\Employee\models\EmployeeSearch;
+use backend\modules\employee\models\Employee;
+use backend\modules\employee\models\EmployeeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

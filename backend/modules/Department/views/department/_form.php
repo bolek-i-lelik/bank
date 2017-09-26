@@ -19,8 +19,6 @@ Assets::register($this);
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->hint('')->label('Наименование отдела') ?>
 
-
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
