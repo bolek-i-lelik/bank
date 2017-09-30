@@ -7,16 +7,14 @@ use yii\widgets\DetailView;
 /* @var $model app\modules\task\Task */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '?', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,15 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'user_id',
-            'name',
-            'surname',
-            'patronymic',
-            'department_id',
-            'avatar',
-            'created_at',
-            'dismissal_at',
+            [                    
+                'label' => 'ФИО',
+                'value' => $model->surname.' '.$model->name.' '.$model->father_name,            
+            ],
+            [
+                'label' => 'Подразделение',
+                'value' => $model->getDepartment($model->department_id),
+            ],
+            [
+                'label' => 'Принят',
+                'value' => date('d-m-Y', $model->created_at),
+            ],
         ],
     ]) ?>
 

@@ -69,4 +69,18 @@ class User extends \yii\db\ActiveRecord
     {
 
     }
+
+    /**
+     * Вовращает массив с пользователями - ключ id, значение имя и отчество
+     */
+    public static function getUsers()
+    {
+        $users = self::find()->all();
+        $arr = [];
+        foreach($users as $user){
+            $arr[$user->id] = $user->first_name.' '.$user->last_name;
+        }
+
+        return $arr;
+    }
 }

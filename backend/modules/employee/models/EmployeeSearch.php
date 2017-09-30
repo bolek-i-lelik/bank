@@ -19,7 +19,7 @@ class EmployeeSearch extends Employee
     {
         return [
             [['id', 'user_id', 'department_id', 'created_at', 'dismissal_at'], 'integer'],
-            [['name', 'surname', 'patronymic', 'avatar', 'department_id', 'dismissal_at'], 'safe'],
+            [['name', 'surname', 'patronymic', 'department_id', 'dismissal_at', 'father_name'], 'safe'],
         ];
     }
 

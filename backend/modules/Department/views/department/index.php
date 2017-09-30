@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\modules\TaskSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Department';
+$this->title = 'Подразделения';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Task', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -24,9 +24,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'name',
+            [
+                'attribute' => 'parent',
+                'format' => 'text',
+                'label' => 'Вышестоящее подразделение',
+                //'filter'=>$parent,
+                'content' => function($model) {
+                    return $model->getParent($model->parent);
+                }
+            ],
+            [
+                'attribute' => 'manager',
+                'format' => 'text',
+                'label' => 'Руководитель',
+                //'filter'=>$manager,
+                'content' => function($model) {
+                    return $model->getManagerFIO($model->manager);
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -3,6 +3,7 @@
 namespace backend\modules\employee\models;
 
 use Yii;
+use backend\modules\Department\models\Department;
 
 /**
  * This is the model class for table "{{%employee}}".
@@ -16,6 +17,7 @@ use Yii;
  * @property string $avatar
  * @property int $created_at
  * @property int $dismissal_at
+ * @property string $father_name
  */
 class Employee extends \yii\db\ActiveRecord
 {
@@ -35,6 +37,7 @@ class Employee extends \yii\db\ActiveRecord
         return [
             [['user_id', 'department_id', 'created_at', 'dismissal_at'], 'integer'],
             [['name', 'surname', 'patronymic', 'avatar'], 'string', 'max' => 255],
+            [['father_name'], 'string', 'max' => 50],
         ];
     }
 
@@ -46,13 +49,41 @@ class Employee extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'name' => 'Name',
-            'surname' => 'Surname',
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
             'patronymic' => 'Patronymic',
             'department_id' => 'Department ID',
             'avatar' => 'Avatar',
-            'created_at' => 'Created At',
-            'dismissal_at' => 'Dismissal At',
+            'created_at' => 'Принят',
+            'dismissal_at' => 'Уволен',
+            'father_name' => 'Отчество',
         ];
+    }
+
+    /**
+     * Вовращает массив с сотрудниками - ключ id, значение имя и отчество
+     */
+    public static function getEmployees()
+    {
+        $employees = self::find()->all();
+        $arr = [];
+        foreach($employees as $employee){
+            $arr[$employee->id] = $employee->surname.' '.$employee->name.' '.$employee->father_name;
+        }
+
+        return $arr;
+    }
+
+    /**
+     * Вовращает наименование подразделения
+     */
+    public function getDepartment($id)
+    {
+        $department = Department::find()->where(['id' => $id])->one();
+        if(isset($department->id)){
+            return $department->name;
+        }else{
+            return '';
+        }
     }
 }

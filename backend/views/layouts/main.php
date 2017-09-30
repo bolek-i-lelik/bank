@@ -66,14 +66,14 @@ $user = User::find()->where(['id' => Yii::$app->user->id])->one();
                             \yiister\gentelella\widgets\Menu::widget(
                                 [
                                     "items" => [
-                                        ["label" => "Home", "url" => "/", "icon" => "home"],
+                                        /*["label" => "Home", "url" => "/", "icon" => "home"],*/
                                         [
                                             "label" => "Организация",
                                             "icon" => "th",
                                             "url" => "#",
                                             "items" => [
                                                 ["label" => "Общая информация", "url" => ["/Organization/default"]],
-                                                ["label" => "Отделы", "url" => ["/Department/department"]],
+                                                ["label" => "Подразделения", "url" => ["/Department/department"]],
                                                 ["label" => "Сотрудники", "url" => ["/employee/employee"]],
                                                 ["label" => "Пользователи", "url" => ["/user/user"]],
                                             ],
@@ -87,7 +87,7 @@ $user = User::find()->where(['id' => Yii::$app->user->id])->one();
                                                 ["label" => "Все задачи", "url" => ["/Task/task"]]
                                             ],
                                         ],
-                                        [
+                                        /*[
                                             "label" => "Badges",
                                             "url" => "#",
                                             "icon" => "table",
@@ -135,7 +135,7 @@ $user = User::find()->where(['id' => Yii::$app->user->id])->one();
                                                     ],
                                                 ],
                                             ],
-                                        ],
+                                        ],*/
                                     ],
                                 ]
                             )

@@ -19,7 +19,7 @@ class DepartmentSearch extends Department
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'parent', 'manager'], 'safe'],
         ];
     }
 
