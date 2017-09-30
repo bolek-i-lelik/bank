@@ -73,8 +73,8 @@ $user = User::find()->where(['id' => Yii::$app->user->id])->one();
                                             "url" => "#",
                                             "items" => [
                                                 ["label" => "Общая информация", "url" => ["/Organization/default"]],
-                                                ["label" => "Отделы", "url" => ["/menu"]],
-                                                ["label" => "Сотрудники", "url" => ["/employee/default"]],
+                                                ["label" => "Отделы", "url" => ["/Department/department"]],
+                                                ["label" => "Сотрудники", "url" => ["/employee/employee"]],
                                                 ["label" => "Пользователи", "url" => ["/user/user"]],
                                             ],
                                         ],
