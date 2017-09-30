@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\date\DatePicker;
+use iamsaint\datetimepicker\Assets;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\user\models\UserSearch */
@@ -13,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Создать', ['/site/signup'], ['class' => 'btn btn-success btn-sm']) ?>
@@ -23,17 +24,41 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            //'username',
             'first_name',
             'last_name',
-            //'password_reset_token',
              'email:email',
-            // 'status',
-             'created_at',
-             'updated_at',
-            // 'first_name',
-            // 'last_name',
+            [
+                'attribute' => 'created_at',
+                'label' => '<i class="fa fa-calendar"></i> Добавлен',
+                'encodeLabel' => false,
+                'filter' => Datepicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'pluginOptions' => [
+                        'format' => 'dd-mm-yyyy',
+                        'todayHighlight' => true
+                    ],
+                ]),
+                'value' => function ($model) {
+                    return date('d-m-Y', $model->created_at);
+                },
+            ],
+            [
+                'attribute' => 'updated_at',
+                'label' => '<i class="fa fa-calendar"></i> Изменён',
+                'encodeLabel' => false,
+                'filter' => Datepicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'updated_at',
+                    'pluginOptions' => [
+                        'format' => 'dd-mm-yyyy',
+                        'todayHighlight' => true
+                    ],
+                ]),
+                'value' => function ($model) {
+                    return date('d-m-Y', $model->updated_at);
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

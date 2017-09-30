@@ -15,9 +15,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-arrow-left"></i>', ['index'], [
+            'class' => 'btn btn-sm btn-default full-opacity-hover',
+            'title' => 'Назад',
+            'data' => [
+                'toggle' => 'tooltip',
+                'placement' => 'bottom'
+            ]
+        ]); ?>
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], [
+                'class' => 'btn btn-sm btn-primary'
+        ]) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
+            'class' => 'btn btn-sm btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
@@ -31,14 +41,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'first_name',
             'last_name',
-            //'username',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
             'email:email',
             'status',
-            'created_at',
-            'updated_at',
+            [
+                'label' => 'Создан',
+                'value' => date('d-m-Y', $model->created_at),
+            ],
+            [
+                'label' => 'Изменён',
+                'value' => date('d-m-Y', $model->updated_at),
+            ],
         ],
     ]) ?>
 

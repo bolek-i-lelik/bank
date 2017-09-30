@@ -51,6 +51,18 @@ class UserSearch extends User
 
         $this->load($params);
 
+        if($this->created_at){
+            $this->created_at = strtotime($this->created_at);
+            $start_cr = mktime(0, 0, 0, date("m", $this->created_at), date("d", $this->created_at), date("y", $this->created_at));
+            $stop_cr = $start_cr + 86400;
+        }
+
+        if($this->updated_at){
+            $this->updated_at = strtotime($this->updated_at);
+            $start_up = mktime(0, 0, 0, date("m", $this->updated_at), date("d", $this->updated_at), date("y", $this->updated_at));
+            $stop_up = $start_up + 86400;
+        }
+
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -61,8 +73,6 @@ class UserSearch extends User
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
@@ -72,6 +82,15 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'first_name', $this->first_name])
             ->andFilterWhere(['like', 'last_name', $this->last_name]);
+
+        if($this->created_at) {
+            $query->andFilterWhere(['between', 'created_at', $start_cr, $stop_cr]);
+            $this->created_at = date('d-m-Y', $this->created_at);
+        }
+        if($this->updated_at) {
+            $query->andFilterWhere(['between', 'updated_at', $start_up, $stop_up]);
+            $this->updated_at = date('d-m-Y', $this->updated_at);
+        }
 
         return $dataProvider;
     }
